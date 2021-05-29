@@ -55,10 +55,11 @@ for i, data in enumerate(streams):
     results[:-1] += sm.step(x, y)
 t2 = time()
 results[m] = t2 - t1
-torch.save(results.detach(), 'results/single_model.pt')
+torch.save(results.detach(),
+           'results/{}.single_model.pt'.format(streams_name))
 
 print('Initialize models...')
-rc = EvolutionaryRegressorChains(1, m, baselearner, device)
+rc = RegressorChains(1, m, baselearner, device)
 results = torch.zeros(m+1, device=device)
 t1 = time()
 for i, data in enumerate(streams):
@@ -68,7 +69,8 @@ for i, data in enumerate(streams):
     results[:-1] += rc.step(x, y)
 t2 = time()
 results[m] = t2 - t1
-torch.save(results.detach(), 'results/one_chain_erc.pt')
+torch.save(results.detach(),
+           'results/{}.one_chain_erc.pt'.format(streams_name))
 
 print('Initialize models...')
 vrc = RegressorChains(n_chains, m, baselearner, device)
@@ -85,7 +87,8 @@ for i, data in enumerate(streams):
         results[:-1] += F.mse_loss(y_hat, y, reduction='none')
 t2 = time()
 results[m] = t2 - t1
-torch.save(results.detach(), 'results/vanilarc.pt')
+torch.save(results.detach(),
+           'results/{}.vanilarc.pt'.forma(streams_name))
 
 print('Initialize models...')
 orc = RegressorChains(n_chains, m, baselearner, device)
@@ -98,7 +101,8 @@ for i, data in enumerate(streams):
     results[:-1] += orc.step(x, y)
 t2 = time()
 results[m] = t2 - t1
-torch.save(results.detach(), 'results/onlinerc.pt')
+torch.save(results.detach(),
+           'results/{}.onlinerc.pt'.format(streams_name))
 
 print('Initialize models...')
 erc = EvolutionaryRegressorChains(n_chains, m, baselearner, device)
@@ -111,4 +115,5 @@ for i, data in enumerate(streams):
     results[:-1] += erc.step(x, y, n_pruning=n_pruning)
 t2 = time()
 results[m] = t2 - t1
-torch.save(results.detach(), 'results/erc.pt')
+torch.save(results.detach(),
+           'results/{}.erc.pt'.format(streams_name))

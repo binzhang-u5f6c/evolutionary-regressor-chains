@@ -3,7 +3,7 @@
   "streams": "train",
   "n_chains": 10,
   "n_pruning": 7,
-  "rho": 0.9,
+  "rho": 0.1,
   "qmin": 0.016,
   "qmax":0.875
 }

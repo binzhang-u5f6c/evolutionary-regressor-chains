@@ -38,7 +38,7 @@ class SingleModels:
             y_hat[i] = learner(xx, xy)
         return y_hat
 
-    def step(self, x, y, lr=1e-4, weight_decay=1):
+    def step(self, x, y, lr=1e-8, weight_decay=1):
         """Step method."""
         m, d = x.shape
         y_hat = self.predict(x)
@@ -80,7 +80,7 @@ class RegressorChain:
                 y_hat[sid] = self.learners[sid](xx, xy)
         return y_hat
 
-    def step(self, x, y, lr=1e-4, weight_decay=1):
+    def step(self, x, y, lr=1e-8, weight_decay=1):
         """Step method."""
         m, d = x.shape
         y_hat = self.predict(x)
@@ -109,13 +109,13 @@ class RegressorChains:
     def predict(self, x):
         """Predict method."""
         m, d = x.shape
-        y_hat = torch.zeros((self.n_chains, m), devcie=self.device)
+        y_hat = torch.zeros((self.n_chains, m), device=self.device)
         for i, chain in enumerate(self.chains):
             y_hat[i, :] = chain.predict(x)
         y_hat2 = y_hat.sum(axis=0) / self.n_chains
         return y_hat2
 
-    def step(self, x, y, lr=1e-4, weight_decay=1):
+    def step(self, x, y, lr=1e-8, weight_decay=1):
         """Step method."""
         m, d = x.shape
         y_hat = torch.zeros((self.n_chains, m), device=self.device)

@@ -13,32 +13,6 @@ from ..utils.loader import SensorStreams
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 
-class BaseLearnerSynthetic(nn.Module):
-    """Base learner for SyntheticStreams.
-
-    A simple linear model.
-    """
-
-    def __init__(self, device=device):
-        """__init__ for BaseLearnerSynthetic."""
-        super(BaseLearnerSynthetic, self).__init__()
-        self.fcx = nn.Linear(4, 1, bias=False)
-        self.fcy = nn.Linear(1, 1)
-        nn.init.kaiming_uniform_(self.fcx.weight)
-        nn.init.kaiming_uniform_(self.fcy.weight)
-        nn.init.zeros_(self.fcy.bias)
-        self.to(device)
-
-    def forward(self, x, y):
-        """Forward method."""
-        if len(x.shape) == 1:
-            x = x.view(1, -1)
-        x1 = self.fcx(x)
-        x2 = self.fcy(y)
-        xx = x1 + x2
-        return xx
-
-
 class BaseLearnerTrain(nn.Module):
     """Base learner for TrainStreams.
 
