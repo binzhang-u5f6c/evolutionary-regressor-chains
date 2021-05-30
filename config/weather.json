@@ -1,9 +1,9 @@
 {
-  "device": "cuda:0",
+  "device": "cuda:1",
   "streams": "weather",
   "n_chains": 10,
   "n_pruning": 3,
-  "rho": 0.1,
+  "rho": 0.5,
   "qmin": 0.01,
   "qmax":0.9
 }

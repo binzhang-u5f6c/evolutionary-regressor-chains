@@ -1,9 +1,9 @@
 {
-  "device": "cuda:0",
+  "device": "cuda:1",
   "streams": "sensor",
   "n_chains": 10,
   "n_pruning": 5,
-  "rho": 0.1,
+  "rho": 0.3,
   "qmin": 0.028,
   "qmax":0.83
 }
